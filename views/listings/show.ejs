@@ -1,0 +1,282 @@
+<!-- 
+ <% layout("/layouts/boilerplate") %>
+ <body>
+     
+ 
+        
+    
+         <div class="col-6 offset-2">
+             <div class="card-show">
+                
+                
+                 <img src="<%= listing.image.url %>" class="img-fluid show-imge" alt="Room List">
+                 
+                 <div class="card-body-show">
+                     <p class="card-text-show">
+                        <p>Owned By : <i><%= listing.owner.username %></i></p>
+                       
+                       <p> <b><%= listing.title %></b></p>
+                     <p>   <%= listing.description %> </p>
+                     <p> Phone no : <b> <%= listing.number %> </b></p>
+                        <p>&#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
+                       <p> <%= listing.location %></p>
+                        <p><%= listing.country %></p>
+
+
+
+
+                        
+<div class="mt-3" id="contactSection">
+    <% if (currUser) { %>
+        <div id="contactBox">
+            <button class="btn btn-outline-primary d-flex align-items-center gap-2" id="contactBtn">
+                <i class="fa-solid fa-phone"></i> Contact Owner
+            </button>
+        </div>
+    <% } else { %>
+        <div class="alert alert-warning d-flex align-items-center gap-2">
+            <i class="fa-solid fa-lock"></i>
+            Please <a href="/login" class="ms-1 text-decoration-underline">login</a> to view the contact number.
+        </div>
+    <% } %>
+</div>
+
+
+
+
+                     </p>
+                 </div>
+             </div>
+ 
+            
+             <div class="d-flex gap-2 mb-3">
+                <% if (currUser && listing.owner && String(currUser._id) === String(listing.owner._id)) { %>
+
+                <a href="/listings/<%= listing._id %>/edit"> 
+                    <button class="btn btn-primary">Edit</button>
+                </a>
+            
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                </form>
+                <%}%>
+            </div>
+          
+         </div>
+
+      
+         <div class="review mb-3 col-8 offset-2">
+            <hr>
+           <% if(currUser){%>
+        <p>Leave a Review</p>
+            <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label for="rating" class="form-label">Rating:</label>
+           
+                  
+                  <fieldset class="starability-growRotate">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset> 
+                
+                
+                </div>
+                <div class="mb-3">
+                  <label for="body" class="form-label">Comment:</label>
+                  <textarea class="form-control" id="body" name="review[comment]" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-dark mb-3">Submit Review</button>
+              </form>
+              <hr>
+              <%}%>
+        
+       
+            <div class="reviews">
+                <h4>Reviews</h4>
+                <div class="row">
+                    <% for (let review of listing.reviews) { %>
+                        <div class="col-md-6 mb-3">
+                     <div class=" review-card">
+                                <div class="card-body"><h4>@ <%= review.author.username %></h4>
+                                    <p class="starability-result" data-rating="<%= review.rating %>">
+                                    </p>
+                                    <b>Comment:</b> <%= review.comment %> <br>
+                                   
+
+                                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-danger mt-2">DELETE</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+    const contactBtn = document.getElementById('contactBtn');
+    const contactBox = document.getElementById('contactBox');
+
+    contactBtn?.addEventListener('click', () => {
+        // Replace the button with the number box
+        contactBox.innerHTML = `
+            <div class="alert alert-success d-flex align-items-center gap-2 mt-2">
+                <i class="fa-solid fa-user-check"></i> <b><%= listing.number %></b>
+            </div>
+        `;
+    });
+</script>
+
+
+ </body>
+ 
+
+
+
+
+
+
+
+
+
+
+ -->
+
+ <% layout("/layouts/boilerplate") %>
+<body style="background-color: #f5f7fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+    <div class="container py-5">
+        <!-- Listing Card -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                    <img src="<%= listing.image.url %>" class="img-fluid" style="height: 300px; object-fit: cover;" alt="Room List">
+
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-1"><%= listing.title %></h3>
+                        <p class="text-muted mb-2">Owned By: <i><%= listing.owner.username %></i></p>
+                        <p><%= listing.description %></p>
+                        <p><strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %></p>
+                        <p><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
+
+                        <!-- Contact Owner Section -->
+                        <hr>
+                        <div id="contactSection">
+                            <% if (currUser) { %>
+                                <div id="contactBox">
+                                    <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2" id="contactBtn" style="border-radius: 12px; font-weight: 500;">
+                                        <i class="fa-solid fa-circle-phone fa-shake"></i> Contact Owner
+                                    </button>
+                                </div>
+                            <% } else { %>
+                                <div class="alert alert-warning d-flex align-items-center gap-2">
+                                    <i class="fa-solid fa-lock"></i>
+                                    Please <a href="/login" class="ms-1 text-decoration-underline">login</a> to view the contact number.
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Edit/Delete Buttons -->
+                        <% if (currUser && listing.owner && String(currUser._id) === String(listing.owner._id)) { %>
+                            <div class="d-flex gap-3 mt-4">
+                                <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark px-4">Edit</a>
+                                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger px-4">Delete</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card p-4 shadow-sm rounded-4">
+                    <% if(currUser){ %>
+                        <h4 class="mb-3">Leave a Review</h4>
+                        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+                            <fieldset class="starability-growRotate mb-3">
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="review[comment]" rows="3" placeholder="Write your comment..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit Review</button>
+                        </form>
+                        <hr>
+                    <% } %>
+
+                    <!-- Review Display -->
+                    <h4 class="mb-3">Reviews</h4>
+                    <% if (listing.reviews.length === 0) { %>
+                        <p class="text-muted">No reviews yet.</p>
+                    <% } %>
+
+                    <% for (let review of listing.reviews) { %>
+                        <div class="border p-3 rounded-3 mb-3 bg-light">
+                            <h6>@<%= review.author.username %></h6>
+                            <div class="mb-1" data-rating="<%= review.rating %>">
+                                ⭐ <%= review.rating %>/5
+                            </div>
+                            <p><%= review.comment %></p>
+                            <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Button Script -->
+    <script>
+        const contactBtn = document.getElementById('contactBtn');
+        const contactBox = document.getElementById('contactBox');
+
+        contactBtn?.addEventListener('click', () => {
+            contactBox.innerHTML = `
+                <div class="alert alert-success d-flex align-items-center gap-2 mt-2 rounded-3">
+                    <i class="fa-solid fa-user-check fa-bounce"></i> 
+                    <b><%= listing.number %></b>
+                </div>
+            `;
+        });
+    </script>
+
+</body>
+

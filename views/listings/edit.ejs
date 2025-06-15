@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+
+    <div class="row">
+        <div class="col-8 offset-2">
+    <h3>New Listing</h3>
+
+
+    <form method="post" action="/listings/<%=listing._id%>?_method=PUT" class="needs-validation" enctype="multipart/form-data" novalidate>
+
+        <br><br>
+        
+        <div class="mb-3">
+            <label for=" Title" class="form-label">Title:</label>
+        
+            <input name="listing[title]" type="text" value="<%=listing.title%>" class="form-control">
+        </div>
+
+        <div class="mb-3"><label for="Description" class="form-label">Description:</label>
+            <textarea name="listing[description]" class="form-control"><%=listing.description%> </textarea>
+        </div>
+    
+
+        <div class="mb-3">
+            <label for="Image" class="form-label">Uplod an Image:</label>
+            <input name="listing[image]" type="file"class="form-control">
+        </div>
+      <div class="row">
+        <div class="mb-3 col-md-4 ">
+            <label for="Price" class="form-label">Price:</label>
+            <input name="listing[price]" type="number" value="<%=listing.price%>"class="form-control">
+        </div>
+      
+        <div class="mb-3 col-md-8">
+            
+             <label for="Country" class="form-label">Country:</label>
+            <input name="listing[country]" type="text" value="<%=listing.country%>"class="form-control">
+        </div>
+    </div>
+   <div class="mb-3 ">
+            
+             <label for="number" class="form-label">Number:</label>
+            <input name="listing[number]" type="text" value="<%=listing.number%>"class="form-control">
+        </div>
+        <div class="mb-3">
+            
+              <label for="Location" class="form-label">Location:</label>
+            <input name="listing[location]" type="text" value="<%=listing.location%>"class="form-control">
+        </div>
+
+        <button class="btn bg-danger text-white mt-2 mb-3" type="submit">Update</button>
+
+
+
+
+
+
+        
+
+
+    </form>
+        </div>  
+
+
+</div>
+</body>

@@ -1,0 +1,36 @@
+<!-- <% if (success && success.length ){%>
+    <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+<%}%> -->
+
+<% if (success && success.length) { %>
+    <div class="alert alert-success  col-6 offset-3 " role="alert" id="flash-message">
+        <%= success %>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                flashMessage.style.display = "none";
+            }
+        }, 3000); // 3 seconds ke baad message hide ho jayega
+    </script>
+<% } %>
+
+
+<% if (error && error.length) { %>
+    <div class="alert alert-danger  col-6 offset-3 " role="alert" id="flash-message">
+        <%= error %>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                flashMessage.style.display = "none";
+            }
+        }, 3000); // 3 seconds ke baad message hide ho jayega
+    </script>
+<% } %>

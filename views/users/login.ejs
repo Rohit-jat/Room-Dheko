@@ -1,0 +1,27 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="login-wrapper d-flex justify-content-center mt-5 mb-5 " >
+  <div class="login-box shadow p-5 rounded-4 bg-white" style="width: 100%; max-width: 450px;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form method="post" action="/login" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input name="username" type="text" class="form-control" required>
+        <div class="invalid-feedback">
+          Please enter a valid username.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input name="password" type="password" class="form-control" required>
+        <div class="invalid-feedback">
+          Please enter a valid password.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">Login</button>
+    </form>
+  </div>
+</div>

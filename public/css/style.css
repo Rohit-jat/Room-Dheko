@@ -1,0 +1,207 @@
+ .navbar{
+    height: 5rem;
+    border-bottom: 0.1px solid black;
+    
+}
+
+.nav-link{
+    color: #171717 !important;
+}
+
+.fa-solid{
+    font-size: 2rem;
+    color: red;
+}
+
+.nav-item:hover{
+ font-weight: 600;   
+}
+
+
+
+
+
+
+
+
+.footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.finfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Elements ke beech gap */
+}
+
+.f-soical i {
+    font-size: 24px;
+    margin: 5px;
+    color: white;
+}
+
+.f-limited p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.f-privicy a {
+    color: white;
+    text-decoration: none;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.f-privicy a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Body aur HTML ko pura screen height tak stretch karna */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content ko grow karne dena */
+.main-content {
+    flex: 1;
+}
+
+/* Footer styling */
+.footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+
+/* cards styleing */
+
+
+.card {
+  border: no
+  ne !important;
+  margin-bottom: 2rem;
+    
+}
+
+
+.card-img-top{
+    border-top-left-radius: 2rem !important ;
+      border-top-right-radius: 2rem !important ;
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 20rem !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+
+
+
+.card-img-top:hover{
+    opacity: 0.7 !important;
+
+}
+.card-img-overlay {
+    pointer-events: none; /* Allows hover effect on image */
+}
+
+
+.forScale:hover {
+    transform: scale(1.05); /* 5% bada hoga */
+    /* box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); */
+}
+
+
+.all_listings_heading{
+    margin-bottom: 2rem;
+}
+
+
+
+.text-on-card{
+    text-align: right;
+    font-weight: 900;
+ 
+ 
+}
+
+
+
+/* show page */
+
+/* .show-image{
+   
+        height: 300px !important; Jo bhi height chahiye
+        width: auto !important;  Ya fixed width bhi rakh sakte ho */
+
+    
+        /* .show-image {
+            width: 100%;  /* Image pura 8 columns fill kare 
+            height: 30vh; /* 30% viewport height
+            object-fit: cover; /* Image ko crop karke perfect fit banane ke liye 
+            border-radius: 10px; /* Thoda rounded look ke liye 
+        } */
+        
+
+
+        .show-imge {
+            width: 100%;       /* Ensure image fits the card width */
+            height: 30vh !important;      /* Fixed height of 30% viewport height */
+            object-fit: cover; /* Prevents stretching, keeps aspect ratio */
+            border-radius: 8px; /* Optional: Adds rounded corners */
+        }
+        
+
+
+        .review-card{
+            border: 1px solid black !important;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            padding-bottom: 1rem;
+        }
+
+
+
+
+
+
+
+
+
+/* 
+        login page */
+
+        .login-wrapper {
+  background-color: #f8f9fa; /* Soft light background */
+}
+
+.login-box {
+  background-color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.login-box h3 {
+  font-weight: 600;
+  color: #198754;
+}
+
+.btn-success {
+  font-weight: 500;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
