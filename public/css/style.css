@@ -97,8 +97,8 @@ html, body {
 
 
 .card-img-top{
-    border-top-left-radius: 2rem !important ;
-      border-top-right-radius: 2rem !important ;
+    /* border-top-left-radius: 2rem !important ; */
+      /* border-top-right-radius: 2rem !important ; */
     object-fit: cover !important;
     width: 100% !important;
     height: 20rem !important;
@@ -205,3 +205,29 @@ html, body {
   font-size: 1rem;
   border-radius: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Give white background to navbar collapse menu on mobile */
+  @media (max-width: 768px) {
+    .navbar-collapse {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.25rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-collapse .nav-link {
+      color: black; /* Optional: ensure link text is visible on white */
+    }
+  }
+
