@@ -40,3 +40,10 @@ module.exports.userLogout = (req,res,next)=>{
         res.redirect("/login");
     });
 };
+
+
+// module.exports.index =  async(req , res) =>{
+//     const allUsers = await User.find({});
+//     res.render("listings/home", { allUsers });
+//     // res.render("/listings/index.ejs" , {allListings});     never have to use .ejs with res.render
+// };

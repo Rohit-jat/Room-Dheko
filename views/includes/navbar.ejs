@@ -1,81 +1,60 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-person-shelter"></i></a>
+  <div class="container-fluid">
+    <% if (path === "/listings/home") { %>
+      <div class="w-100 d-flex justify-content-center">
+        <span class="navbar-brand mx-auto fs-2 text-danger"><img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" style="height: 40px; margin-right: 20px; "><b>Room</b> Dheko</span>
+      </div>
+    <% } else { %>
+      <a class="navbar-brand" href="/listings/home"><img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" style="height: 40px; margin-left:10px; "></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-
-
-
-
-
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="/listings">Explore</a>
           </li>
-          
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
         </ul>
-
-
-
-        
-<% if (path !== "/login" && path !== "/signup") { %>
-        <ul class="navbar-nav ms-auto">
-  <li class="nav-item">
-    <form id="searchForm" class="d-flex" role="search">
-      <!-- <input id="searchInput" class="form-control me-2" type="search" placeholder="Search e.g. room under 4000 in Jaipur" aria-label="Search" required> -->
-       <input id="searchInput" class="form-control me-2" type="search" 
-  placeholder="Search e.g. room under 4000 in Jaipur" 
-  aria-label="Search" required
-  style="width: 400px; font-size: 1rem;">
-
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </li>
-        </ul>
-<% } %>
-
-
-
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+        <% if (path !== "/login" && path !== "/signup") { %>
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/listings/new">Add Room</a>
+              <form id="searchForm" class="d-flex" role="search">
+                <input id="searchInput" class="form-control me-2" type="search" 
+                  placeholder="Search e.g. room under 4000 in Jaipur" 
+                  aria-label="Search" required
+                  style="width: 400px; font-size: 1rem;">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
             </li>
-            <%if(!currUser){%>
-            <a class="nav-link active" aria-current="page" href="/login"><b>Login</b></a>
-          </li>
+          </ul>
+        <% } %>
 
-
-         
-        
-
-
-
-
-
-
+         <% if (path !== "/login" && path !== "/signup") { %>
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/signup"><b>Sign up</b></a>
+            <a class="nav-link" href="/listings/new">Add Room</a>
           </li>
-          <%}%>
-          <%if(currUser){%>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout"><b>Logout</b></a>
-          </li>
-          <%}%>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li> -->
+</ul>
+                  <% } %>
+          <% if (!currUser) { %>
+                    <ul class="navbar-nav ms-auto">  
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"><b>Login</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup"><b>Sign up</b></a>
+            </li>
+          <% } %>
+          <% if (currUser) { %>
+              <ul class="navbar-nav ms-10px
+              ">  
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"><b>Logout</b></a>
+            </li>
+            </ul>
+          <% } %>
         </ul>
       </div>
-    </div>
-  </nav>
+    <% } %>
+  </div>
+</nav>

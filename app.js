@@ -78,7 +78,7 @@ const sessionOptions = {
 
 // ✅ Root route
 app.get("/", (req, res) => {
-  res.redirect("/listings");
+  res.redirect("/listings/home");
 });
 
 app.use(session(sessionOptions));
@@ -126,6 +126,7 @@ app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/" , UserRouter);
 
 app.use('/search', searchRoutes);
+
 
 //  Error Handling
 
