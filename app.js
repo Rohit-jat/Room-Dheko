@@ -19,7 +19,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/users"); 
-const searchRoutes = require('./routes/search'); // ✅ path sahi ho
+const searchRoutes = require('./routes/search');
 
 
 
@@ -31,21 +31,23 @@ const searchRoutes = require('./routes/search'); // ✅ path sahi ho
 
 const db_url = process.env.ATLUS_URL;
 
-// ✅ MongoDB Connection with error handling
+//  MongoDB Connection with error handling
 async function main() {
   try {
     await mongoose.connect(db_url, {
       serverSelectionTimeoutMS: 5000, // Timeout fix
       socketTimeoutMS: 45000, // Socket timeout fix
     });
-    console.log("✅ Connected to MongoDB");
+    console.log(" Connected to MongoDB");
   } catch (error) {
-    console.error("❌ DB Connection Error:", error);
+    console.error(" DB Connection Error:", error);
   }
 }
-main(); // ✅ Function call nahi bhoolna!
+main(); 
 
-// ✅ EJS setup fix
+
+
+// EJS setup fix
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views")); 
 app.use(express.urlencoded({extended : true}));
@@ -76,7 +78,7 @@ const sessionOptions = {
 };
 
 
-// ✅ Root route
+// Root route
 app.get("/", (req, res) => {
   res.redirect("/listings/home");
 });
@@ -99,10 +101,7 @@ passport.deserializeUser(User.deserializeUser());
 //   });
 
 
-// // let registeredUser =  User.register (fackUser , "jatboy");
-// let registeredUser = await User.register(fakeUser, "jatboy144"); 
-// res.send(registeredUser);
-// });
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -131,7 +130,7 @@ app.use('/search', searchRoutes);
 //  Error Handling
 
 app.all("*", (req, res, next) => {
-  next(new ExpressError( 404 , "Page not found")); // Class name should be correct
+  next(new ExpressError( 404 , "Page not found"));
 });
 
 //  Error Handling Middleware
@@ -146,7 +145,7 @@ async function fetchListings() {
         const listings = await Listing.find({});
         // console.log("Listings:", listings);
     } catch (error) {
-        console.error("❌ Error fetching listings:", error);
+        console.error(" Error fetching listings:", error);
     }
 }
 
@@ -155,5 +154,5 @@ fetchListings();
 
 //  Server start
 app.listen(8080, () => {
-    console.log("🚀 Server is running on port 8080");
+    console.log(" Server is running on port 8080");
 });

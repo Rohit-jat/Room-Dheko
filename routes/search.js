@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Listing = require('../models/listing');
 
-// Smart Search Route
+
 router.get('/:key', async (req, res) => {
   const rawKey = req.params.key.toLowerCase();
   let location = '';
@@ -22,8 +22,8 @@ router.get('/:key', async (req, res) => {
   if (inMatch) {
     location = inMatch[1].trim();
   }
+  
 
-  // Fallback if city not matched explicitly
   const knownCities = ['jaipur', 'delhi', 'pune', 'udaipur', 'mumbai'];
   for (const city of knownCities) {
     if (rawKey.includes(city)) {
@@ -36,7 +36,8 @@ router.get('/:key', async (req, res) => {
     location = rawKey;
   }
 
-  // Final filter
+
+  
   let filter = {
     $or: [
       { location: { $regex: new RegExp(location, 'i') } },

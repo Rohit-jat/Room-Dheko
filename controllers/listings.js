@@ -18,7 +18,7 @@ module.exports.newListing =  async (req, res , next) => {
   newListing.image = { url , filename};
   await newListing.save();
   req.flash("success" , "Successfully made a new listing!");
-   res.redirect("/listings")
+   res.redirect("/listings") 
 
 
 };
