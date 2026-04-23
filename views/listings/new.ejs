@@ -1,87 +1,174 @@
 <% layout("/layouts/boilerplate") -%>
-<body>
-<div class="row">
-    <div class="col-8 offset-2 ">
-    <h3>New Listing</h3>
-    <form method="post" action="/listings" class="needs-validation" enctype="multipart/form-data" novalidate>
 
-<div class="mb-3">
-    <label for="Title" class="form-label">Title:</label>
-    <input name="listing[title]" type="text" placeholder="Enter title" class="form-control" required>
-    <div class="invalid-feedback">
-        Please Enter a valid Title.
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap');
+
+  body { background-color: #f4f6f3; font-family: 'DM Sans', sans-serif; }
+
+  .listing-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+
+  .listing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #1a1a1a;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    border-bottom: 1px solid #e2ede6;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #374151;
+    margin-bottom: 0.35rem;
+  }
+
+  .form-control, .form-select {
+    border: 1.5px solid #cde3d5;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background-color: #fff;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: #2d7a52;
+    box-shadow: 0 0 0 3px rgba(45,122,82,0.12);
+  }
+
+  .input-group-text {
+    background-color: #e8f5ee;
+    border: 1.5px solid #cde3d5;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    color: #2d7a52;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .input-group .form-control {
+    border-radius: 0 10px 10px 0;
+  }
+
+  .form-control::placeholder { color: #b0bec5; }
+  textarea.form-control { resize: none; min-height: 100px; }
+
+  .btn-publish {
+    background-color: #1a5c3a;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.78rem 1.5rem;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-publish:hover { background-color: #2d7a52; color: #fff; }
+  .btn-publish:active { transform: scale(0.99); }
+
+  .tag-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #2d7a52; font-weight: 500; margin-bottom: 0.6rem;
+  }
+  .tag-pill::before {
+    content: ''; display: block;
+    width: 18px; height: 1.5px; background: #2d7a52;
+  }
+</style>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-7 col-xl-6">
+
+      <div class="card listing-card p-4 p-md-5">
+
+        <span class="tag-pill">New listing</span>
+        <h2 class="listing-title mb-1">Add your room</h2>
+        <p class="text-muted mb-4" style="font-size:13px;">Fill in the details below and your listing will go live instantly.</p>
+
+        <form method="post" action="/listings" class="needs-validation" enctype="multipart/form-data" novalidate
+              onsubmit="this.classList.add('was-validated')">
+
+          <!-- Basic Info -->
+          <p class="section-label">Basic info</p>
+
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input name="listing[title]" type="text" class="form-control" placeholder="e.g. Cozy 1BHK near metro station" required>
+            <div class="invalid-feedback">Please enter a title.</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="listing[description]" class="form-control" placeholder="Describe the room — amenities, rules, nearby landmarks…" required></textarea>
+            <div class="invalid-feedback">Please enter a description.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">Photo</label>
+            <input name="listing[image]" type="file" accept="image/*" class="form-control">
+          </div>
+
+          <!-- Location -->
+          <p class="section-label">Location</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-5">
+              <label class="form-label">Country</label>
+              <input name="listing[country]" type="text" class="form-control" placeholder="e.g. India" required>
+              <div class="invalid-feedback">Please enter a country.</div>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label">Location / Address</label>
+              <input name="listing[location]" type="text" class="form-control" placeholder="e.g. Koramangala, Bangalore" required>
+              <div class="invalid-feedback">Please enter a location.</div>
+            </div>
+          </div>
+
+          <!-- Price & Contact -->
+          <p class="section-label">Price & contact</p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-5">
+              <label class="form-label">Monthly Rent</label>
+              <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input name="listing[price]" type="number" class="form-control" placeholder="e.g. 8000">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label">WhatsApp Number</label>
+              <input name="listing[number]" type="tel" class="form-control" placeholder="+91 9876543210" required>
+              <div class="invalid-feedback">Please enter a WhatsApp number.</div>
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-publish">Publish Listing →</button>
+          </div>
+
+        </form>
       </div>
+
+    </div>
+  </div>
 </div>
-
-<div class="mb-3">
-    <label for="Description" class="form-label">Description:</label>
-    <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
-    <div class="invalid-feedback">
-        Please enter a valid Description.
-      </div>
-</div>  
-
-<div class="mb-3">
-    <label for="Image" class="form-label">Image:</label>
-
-    <input name="listing[image]" type="file" placeholder="Enter image URL/link" class="form-control">
-    <div class="invalid-feedback">
-        Please choose a Image.
-      </div>
-</div >
-
-<div class="row">
-<div class="mb-3 col-md-4">
-    <label for="Price" class="form-label">Price:</label>
-
-    <input name="listing[price]"   placeholder="Enter price" class="form-control">
-    <div class="invalid-feedback">
-        Please enter a valid Price.
-      </div>
-</div>
-
-<div class="mb-3 col-md-8">
-    
-    <label for="Country" class="form-label">Country:</label>
-
-    <input name="listing[country]" type="text" placeholder="Enter country" class="form-control" required>
-    <div class="invalid-feedback">
-        Please enter Your Country.
-      </div>
-</div>
-</div>
-<div class="mb-3 ">
-    
-    <label for="number" class="form-label">Number:</label>
-
-    <input name="listing[number]" type="text" placeholder="Please enter Your Number (whatsapp)" class="form-control" required>
-    <div class="invalid-feedback">
-        Please enter Your Number(whatsapp).
-      </div>
-</div>
-
-<div class="mb-3">
-    <label for="Location" class="form-label">Location:</label>
-
-    
-    <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" required>
-    <div class="invalid-feedback">
-        Please enter a valid Location.
-      </div>
-</div>
-
-
-
-<br>
-
-
-        <button class="btn add_btn  btn-primary mb-3" type="submit">Add</button>
-
-
-    </form>
-
-</div>
-
-</div>
-</body>
-

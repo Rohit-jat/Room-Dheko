@@ -1,60 +1,204 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
-  <div class="container-fluid">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap');
+
+  .brand-nav {
+    background: #fff;
+    border-bottom: 1px solid #e2ede6;
+    font-family: 'DM Sans', sans-serif;
+    padding: 0.6rem 0;
+  }
+
+  .nav-brand-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a5c3a;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-brand-text img { height: 34px; }
+  .nav-brand-text em { font-style: italic; color: #2d7a52; }
+
+  .brand-nav .nav-link {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #374151;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .brand-nav .nav-link:hover { background: #e8f5ee; color: #1a5c3a; }
+
+  /* Search */
+  .nav-search-input {
+    width: 320px;
+    font-size: 13.5px;
+    border: 1.5px solid #cde3d5;
+    border-radius: 8px 0 0 8px;
+    padding: 0.45rem 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  .nav-search-input:focus {
+    border-color: #2d7a52;
+    box-shadow: 0 0 0 3px rgba(45,122,82,0.1);
+  }
+  .nav-search-btn {
+    background: #1a5c3a;
+    color: #fff;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    padding: 0.45rem 1rem;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .nav-search-btn:hover { background: #2d7a52; }
+
+  /* Auth buttons */
+  .btn-nav-login {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a5c3a;
+    border: 1.5px solid #cde3d5;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .btn-nav-login:hover { background: #e8f5ee; border-color: #2d7a52; color: #1a5c3a; }
+
+  .btn-nav-signup {
+    font-size: 13px;
+    font-weight: 500;
+    background: #1a5c3a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .btn-nav-signup:hover { background: #2d7a52; color: #fff; }
+
+  .btn-nav-logout {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .btn-nav-logout:hover { background: #fef2f2; color: #e05c5c; border-color: #fca5a5; }
+
+  .btn-nav-addroom {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2d7a52;
+    border-radius: 8px;
+    padding: 0.4rem 0.85rem;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 5px;
+    transition: background 0.15s;
+  }
+  .btn-nav-addroom:hover { background: #e8f5ee; color: #1a5c3a; }
+
+  /* Home centered brand */
+  .home-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a5c3a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-brand img { height: 38px; }
+</style>
+
+<nav class="navbar navbar-expand-md brand-nav sticky-top">
+  <div class="container">
+
     <% if (path === "/listings/home") { %>
+      <!-- Centered home brand -->
       <div class="w-100 d-flex justify-content-center">
-        <span class="navbar-brand mx-auto fs-2 text-danger"><img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" style="height: 40px; margin-right: 20px; "><b>Room</b> Dheko</span>
+        <span class="home-brand">
+          <img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" alt="logo">
+          Room <em style="font-style:italic; color:#2d7a52;">Dheko</em>
+        </span>
       </div>
+
     <% } else { %>
-      <a class="navbar-brand" href="/listings/home"><img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" style="height: 40px; margin-left:10px; "></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+      <!-- Brand -->
+      <a class="nav-brand-text" href="/listings/home">
+        <img src="https://media-public.canva.com/A4eKs/MADDP6A4eKs/2/tl.png" alt="logo">
+        Room<em>Dheko</em>
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler border-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+
+        <!-- Left links -->
+        <ul class="navbar-nav me-3">
           <li class="nav-item">
             <a class="nav-link" href="/listings">Explore</a>
           </li>
         </ul>
+
+        <!-- Search -->
         <% if (path !== "/login" && path !== "/signup") { %>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <form id="searchForm" class="d-flex" role="search">
-                <input id="searchInput" class="form-control me-2" type="search" 
-                  placeholder="Search e.g. room under 4000 in Jaipur" 
-                  aria-label="Search" required
-                  style="width: 400px; font-size: 1rem;">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </li>
-          </ul>
+          <form id="searchForm" class="d-flex me-auto" role="search">
+            <input id="searchInput" class="nav-search-input" type="search"
+                   placeholder="Search rooms, cities, prices…"
+                   aria-label="Search" required>
+            <button class="nav-search-btn" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+        <% } else { %>
+          <div class="me-auto"></div>
         <% } %>
 
-         <% if (path !== "/login" && path !== "/signup") { %>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/listings/new">Add Room</a>
-          </li>
-</ul>
-                  <% } %>
+        <!-- Right actions -->
+        <div class="d-flex align-items-center gap-2 ms-2">
+
+          <% if (path !== "/login" && path !== "/signup") { %>
+            <a href="/listings/new" class="btn-nav-addroom">
+              <i class="fa-solid fa-plus" style="font-size:11px;"></i> Add Room
+            </a>
+          <% } %>
+
           <% if (!currUser) { %>
-                    <ul class="navbar-nav ms-auto">  
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/login"><b>Login</b></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup"><b>Sign up</b></a>
-            </li>
+            <a href="/login" class="btn-nav-login">Login</a>
+            <a href="/signup" class="btn-nav-signup">Sign up</a>
+          <% } else { %>
+            <a href="/logout" class="btn-nav-logout">
+              <i class="fa-solid fa-right-from-bracket" style="font-size:11px;"></i> Logout
+            </a>
           <% } %>
-          <% if (currUser) { %>
-              <ul class="navbar-nav ms-10px
-              ">  
-            <li class="nav-item">
-              <a class="nav-link" href="/logout"><b>Logout</b></a>
-            </li>
-            </ul>
-          <% } %>
-        </ul>
+
+        </div>
+
       </div>
     <% } %>
+
   </div>
 </nav>

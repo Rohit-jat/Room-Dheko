@@ -1,84 +1,254 @@
 <% layout("/layouts/boilerplate") -%>
 
-<section  style="background-color: #eee;">
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px;">
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              
-              <!-- Left Column with Form -->
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign Up to Room Dheko</p>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=DM+Sans:wght@300;400;500&display=swap');
 
-                <form class="mx-1 mx-md-4 needs-validation" method="POST" action="/signup" novalidate>
+  .signup-fullscreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #faf9f6;
+    overflow: hidden;
+  }
 
-                  <!-- Username -->
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input name="username" type="text" class="form-control" required />
-                      <label class="form-label">Your Name</label>
-                      <div class="invalid-feedback">Please enter a valid username.</div>
-                    </div>
-                  </div>
+  /* ── Left green panel ── */
+  .sp-left {
+    background: #1a5c3a;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .sp-left::before {
+    content: '';
+    position: absolute;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.07);
+    top: -90px; right: -90px;
+  }
+  .sp-left::after {
+    content: '';
+    position: absolute;
+    width: 170px; height: 170px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+    bottom: 50px; left: -50px;
+  }
+  .sp-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+  }
+  .sp-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .sp-headline em { font-style: italic; color: #7de0a8; }
+  .sp-divider { width: 36px; height: 1.5px; background: rgba(255,255,255,0.15); margin-bottom: 1.2rem; }
+  .sp-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+  }
+  .sp-features { display: flex; flex-direction: column; gap: 0.9rem; }
+  .sp-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+  }
+  .sp-feature-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #7de0a8;
+    flex-shrink: 0;
+  }
 
-                  <!-- Email -->
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input name="email" type="email" class="form-control" required />
-                      <label class="form-label">Your Email</label>
-                      <div class="invalid-feedback">Please enter a valid email.</div>
-                    </div>
-                  </div>
+  /* ── Right form panel ── */
+  .sp-right {
+    background: #faf9f6;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
+  .sp-form-inner { width: 100%; max-width: 400px; margin: 0 auto; }
+  .sp-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #2d7a52; font-weight: 500; margin-bottom: 0.8rem;
+  }
+  .sp-tag::before { content: ''; display: block; width: 18px; height: 1.5px; background: #2d7a52; }
+  .sp-form-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.3rem; }
+  .sp-form-sub { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6b7280; margin-bottom: 1.5rem; }
 
-                  <!-- Password -->
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input name="password" type="password" class="form-control" required />
-                      <label class="form-label">Password</label>
-                      <div class="invalid-feedback">Please enter a valid password.</div>
-                    </div>
-                  </div>
+  .sp-field { margin-bottom: 1rem; }
+  .sp-field label {
+    display: block; font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.4rem;
+  }
+  .sp-inp-wrap { position: relative; }
+  .sp-inp-wrap svg {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    width: 15px; height: 15px; color: #9ca3af; pointer-events: none;
+  }
+  .sp-inp-wrap input {
+    width: 100%; padding: 0.68rem 0.85rem 0.68rem 2.5rem;
+    border: 1.5px solid #d4e6da; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: #1a1a1a; background: #fff; outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s; box-sizing: border-box;
+  }
+  .sp-inp-wrap input:focus { border-color: #2d7a52; box-shadow: 0 0 0 3px rgba(45,122,82,0.1); }
+  .sp-invalid { font-family: 'DM Sans', sans-serif; font-size: 11.5px; color: #e05c5c; margin-top: 0.3rem; display: none; }
+  .was-validated .sp-inp-wrap input:invalid ~ .sp-invalid { display: block; }
 
-                  <!-- Confirm Password (Optional - not used in backend currently) -->
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" class="form-control" />
-                      <label class="form-label">Repeat your password</label>
-                    </div>
-                  </div>
+  .sp-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
-                  <!-- Terms Checkbox -->
-                  <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" required />
-                    <label class="form-check-label">
-                      I agree all statements in <a href="#">Terms of service</a>
-                    </label>
-                  </div>
+  .sp-terms {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 12.5px;
+    color: #6b7280; margin-bottom: 1.3rem; margin-top: 0.3rem;
+  }
+  .sp-terms input { accent-color: #2d7a52; margin-top: 2px; flex-shrink: 0; }
+  .sp-terms a { color: #2d7a52; text-decoration: none; font-weight: 500; }
 
-                  <!-- Submit Button -->
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
-                  </div>
+  .sp-btn {
+    width: 100%; padding: 0.8rem; background: #1a5c3a; color: #fff;
+    border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+    cursor: pointer; transition: background 0.2s, transform 0.12s;
+  }
+  .sp-btn:hover { background: #2d7a52; }
+  .sp-btn:active { transform: scale(0.99); }
 
-                </form>
-              </div>
+  .sp-login {
+    text-align: center; margin-top: 1.1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 12.5px; color: #6b7280;
+  }
+  .sp-login a { color: #2d7a52; font-weight: 500; text-decoration: none; }
 
-              <!-- Right Column with Image -->
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  class="img-fluid" alt="Sample image" />
-              </div>
+  @media (max-width: 700px) {
+    .signup-fullscreen { grid-template-columns: 1fr; }
+    .sp-left { display: none; }
+    .sp-two-col { grid-template-columns: 1fr; }
+  }
+</style>
 
+<div class="signup-fullscreen">
+
+  <!-- Left: Brand Panel -->
+  <div class="sp-left">
+    <div>
+      <p class="sp-eyebrow">Room Dheko</p>
+      <h1 class="sp-headline">Your next home<br>is <em>one step</em> away.</h1>
+      <div class="sp-divider"></div>
+      <p class="sp-desc">Join thousands of tenants who found their perfect room. It only takes a minute to get started.</p>
+    </div>
+    <div class="sp-features">
+      <div class="sp-feature"><span class="sp-feature-dot"></span>Browse 12,000+ verified listings</div>
+      <div class="sp-feature"><span class="sp-feature-dot"></span>Direct contact with landlords</div>
+      <div class="sp-feature"><span class="sp-feature-dot"></span>Save and compare your favourites</div>
+      <div class="sp-feature"><span class="sp-feature-dot"></span>Available across 50+ cities</div>
+    </div>
+  </div>
+
+  <!-- Right: Form Panel -->
+  <div class="sp-right">
+    <div class="sp-form-inner">
+      <span class="sp-tag">Get started</span>
+      <h2 class="sp-form-title">Create account</h2>
+      <p class="sp-form-sub">Fill in the details below to join Room Dheko.</p>
+
+      <form method="POST" action="/signup" class="needs-validation" novalidate
+            onsubmit="this.classList.add('was-validated')">
+
+        <!-- Username -->
+        <div class="sp-field">
+          <label for="username">Username</label>
+          <div class="sp-inp-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input id="username" name="username" type="text" placeholder="your_username" required>
+            <div class="sp-invalid">Please enter a username.</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="sp-field">
+          <label for="email">Email address</label>
+          <div class="sp-inp-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            <div class="sp-invalid">Please enter a valid email.</div>
+          </div>
+        </div>
+
+
+        <div class="sp-two-col">
+          <div class="sp-field">
+            <label for="password">Password</label>
+            <div class="sp-inp-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <input id="password" name="password" type="password" placeholder="••••••••" required>
+              <div class="sp-invalid">Required.</div>
+            </div>
+          </div>
+
+          <div class="sp-field">
+            <label for="confirm">Confirm</label>
+            <div class="sp-inp-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4"/>
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <input id="confirm" type="password" placeholder="••••••••">
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- Terms -->
+        <div class="sp-terms">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+
+        <button type="submit" class="sp-btn">Create Account</button>
+      </form>
+
+      <p class="sp-login">
+        Already have an account? <a href="/login">Sign in →</a>
+      </p>
     </div>
   </div>
-</section>
+
+</div>

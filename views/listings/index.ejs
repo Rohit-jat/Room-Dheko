@@ -1,129 +1,202 @@
-<!-- 
-
 <% layout("/layouts/boilerplate") %>
 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap');
 
+  body { background-color: #f4f6f3; font-family: 'DM Sans', sans-serif; }
 
+  .page-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #2d7a52;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.4rem;
+  }
+  .page-eyebrow::before {
+    content: '';
+    display: block;
+    width: 18px; height: 1.5px;
+    background: #2d7a52;
+  }
 
-<body style="background-color: #f8f9fa;">
-  
-    
-            <p class="text-muted pt-2">Browse all available rooms</p>
-      
-        
-    <div class="bg-light row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for (let listing of allListings) { %>
-            <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
-                <div class="card forScale d-flex justify-content-center mx-auto " style="width: 20rem; cursor: pointer;">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="Room Image">
-                    <div class="card-body">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title"></h5>
-                            <p class="text-on-card"><i class="fa-regular fa-heart"></i></p>
-                            <p class="text-on-card"><small></small></p>
-                          </div>
-                        <b><p class="card-text"><%= listing.title %></p></b>
-                        <p>&#8377; <%= listing.price.toLocaleString("en-IN") %>/month</p>
-                    </div>
-                </div>
-            </a>
-        <% } %>
-    </div> -->
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.3rem;
+  }
 
+  .page-sub {
+    font-size: 13.5px;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
 
+  /* Card */
+  .listing-card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: #fff;
+    cursor: pointer;
+    height: 100%;
+  }
+  .listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  }
 
+  .listing-card .img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .listing-card .img-wrap img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .listing-card:hover .img-wrap img {
+    transform: scale(1.04);
+  }
 
-    <% layout("/layouts/boilerplate") %>
+  /* Heart button */
+  .heart-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 34px; height: 34px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    color: #9ca3af;
+    font-size: 14px;
+    transition: color 0.2s, transform 0.15s;
+    z-index: 1;
+  }
+  .heart-btn:hover { color: #e05c5c; transform: scale(1.15); }
 
-<body style="background-color: #f8f9fa;">
+  /* Badge */
+  .avail-badge {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    background: rgba(26,92,58,0.88);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+  }
 
-<div class="container">
-  <p class="text-muted pt-3">Browse all available rooms</p>
+  .card-body-inner {
+    padding: 1rem 1.1rem 1.1rem;
+  }
 
-  <div class="row g-4">
+  .listing-title-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    <% for (let listing of allListings) { %>
+  .listing-location {
+    font-size: 12.5px;
+    color: #9ca3af;
+    margin-bottom: 10px;
+  }
+  .listing-location i { color: #2d7a52; margin-right: 4px; }
 
-      <div class="col-lg-4 col-md-6 col-sm-12">
+  .listing-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a5c3a;
+  }
+  .listing-price span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #9ca3af;
+  }
 
-        <a href="/listings/<%= listing._id %>" style="text-decoration: none; color: inherit;">
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: #9ca3af;
+  }
+  .empty-state i { font-size: 2.5rem; margin-bottom: 1rem; color: #d4e6da; }
+</style>
 
-          <div class="card h-100"
-               style="
-               border-radius: 12px;
-               overflow: hidden;
-               border: none;
-               box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-               transition: all 0.3s ease;
-               cursor: pointer;
-               "
-               onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)'"
-               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.08)'"
-          >
+<div class="container py-4">
 
-            <!-- Image Section -->
-            <div style="position: relative;">
-              <img src="<%= listing.image.url %>"
-                   alt="Room Image"
-                   style="
-                   width: 100%;
-                   height: 220px;
-                   object-fit: cover;
-                   ">
-
-              <!-- Heart Icon -->
-              <span style="
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background: white;
-                padding: 8px;
-                border-radius: 50%;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-              ">
-                <i class="fa-regular fa-heart"></i>
-              </span>
-            </div>
-
-            <!-- Card Body -->
-            <div style="padding: 15px;">
-
-              <h6 style="
-                font-weight: 600;
-                margin-bottom: 5px;
-                color: #222;
-              ">
-                <%= listing.title %>
-              </h6>
-
-              <p style="
-                font-size: 13px;
-                color: #777;
-                margin-bottom: 8px;
-              ">
-                Jaipur • Available Now
-              </p>
-
-              <h5 style="
-                color: #0d6efd;
-                font-weight: 600;
-                margin: 0;
-              ">
-                ₹ <%= listing.price.toLocaleString("en-IN") %>
-                <span style="font-size: 14px; color: gray;">/month</span>
-              </h5>
-
-            </div>
-
-          </div>
-
-        </a>
-
-      </div>
-
-    <% } %>
-
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+    <div>
+      <span class="page-eyebrow">Room Dheko</span>
+      <h1 class="page-title">Find your room</h1>
+      <p class="page-sub">Browse all available listings across India</p>
+    </div>
+    <a href="/listings/new" class="btn d-flex align-items-center gap-2"
+       style="background:#1a5c3a; color:#fff; border-radius:10px; font-size:13.5px; font-weight:500; padding:0.6rem 1.2rem; text-decoration:none; white-space:nowrap;">
+      <i class="fa-solid fa-plus"></i> Add Listing
+    </a>
   </div>
-</div>
 
-</body>
+  <!-- Grid -->
+  <% if (allListings.length === 0) { %>
+    <div class="empty-state">
+      <i class="fa-regular fa-building"></i>
+      <p>No listings yet. Be the first to add one!</p>
+      <a href="/listings/new" class="btn mt-2" style="background:#1a5c3a; color:#fff; border-radius:10px; font-size:13px;">Add a listing</a>
+    </div>
+  <% } else { %>
+    <div class="row g-4">
+      <% for (let listing of allListings) { %>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+          <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
+            <div class="listing-card">
+
+              <div class="img-wrap">
+                <img src="<%= listing.image.url %>" alt="<%= listing.title %>">
+                <span class="heart-btn"><i class="fa-regular fa-heart"></i></span>
+                <span class="avail-badge">Available</span>
+              </div>
+
+              <div class="card-body-inner">
+                <p class="listing-title-text"><%= listing.title %></p>
+                <p class="listing-location mb-2">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <%= listing.location %>, <%= listing.country %>
+                </p>
+                <div class="d-flex align-items-baseline justify-content-between">
+                  <p class="listing-price mb-0">
+                    ₹ <%= listing.price.toLocaleString("en-IN") %>
+                    <span>/month</span>
+                  </p>
+                  <span style="font-size:11px; background:#e8f5ee; color:#2d7a52; padding:3px 9px; border-radius:20px; font-weight:500;">Room</span>
+                </div>
+              </div>
+
+            </div>
+          </a>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+
+</div>
